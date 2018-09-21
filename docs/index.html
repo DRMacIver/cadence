@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Cadence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    button#cadenceControl {
+        font-size: 40pt;
+        padding: 0.25em; 
+        background: #2fc974;
+        color: #fff;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        width: 350px;
+        border-radius: 8px;
+        margin: auto;
+    }
+
+    h1 {
+        width: 100%;
+        margin: 5px 0 10px 0;
+        font-size: 60pt;
+        text-align: center;
+    }
+
+    article {
+        width: 500px;
+        margin: 5em auto 0 auto;
+        font-size: 20pt;
+    }
+
+    footer {
+        font-size: 10pt;
+        color: grey;
+        margin-top: 50px;
+    }
+</style>
+
+  </head>
+
+  <body>
+
+<article>
+
+<section id=description>
+<h1>Cadence</h1>
+
+<p>
+Cadence is an experiment for structuring conversations.
+The gong sets the pace of the conversation - when it goes off,
+you should finish your sentence and then stop and let someone else speak.
+</p>
+
+</section>
+
+<section>
+<button id=cadenceControl type="button">Start</button>
+</section>
+
+<footer>
+Gong sound by, and copyright of, Daniel Simon. <a href=http://soundbible.com/2148-Chinese-Gong.html>Obtained from SoundBible</a> and used under a Creative Commons Attribution License 3.0. 
+</footer>
+
+</article>
+
+<script type="text/javascript">
+
+var toggleButton = document.getElementById("cadenceControl")
+
+var running = false;
+
+var LongGong = "/assets/chinese-gong-daniel_simon.wav"
+
+function cadenceStep(){
+    if(!running) return;
+
+    var sound = new Audio(LongGong)
+    sound.addEventListener('ended', scheduleNextStep)
+    sound.play()
+}
+
+function scheduleNextStep(){
+    var nextTime = - Math.log(Math.random()) * 1000;
+    setTimeout(cadenceStep, nextTime);
+}
+
+function toggle(){
+    if(running){
+        running = false;
+        toggleButton.innerHTML = "Start"
+    } else {
+        running = true;
+        toggleButton.innerHTML = "Stop"
+        cadenceStep();
+    }
+}
+
+toggleButton.addEventListener("click", toggle)
+
+</script>
+
+  </body>
+
+</html>
